@@ -27,7 +27,7 @@ git clone <repo-url>
 Navigate through the markdown files to review specific sections:
 
 ```bash
-cd git-course-notes
+cd git-essentials
 ```
 
 Open any file using a markdown viewer or editor.
