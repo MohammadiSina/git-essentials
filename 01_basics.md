@@ -1,6 +1,6 @@
-##  1. Git Basics
+# 1. Git Basics
 
-###  Initializing a Repository
+## Initializing a Repository
 
 **Command:**
 ```bash
@@ -16,9 +16,19 @@ git init
 ```
 This creates a `.git` folder, allowing Git to track your project. The folder is hidden by default.
 
+### Modern SHA-256 Support
+
+**Command:**
+```bash
+git init --object-format=sha256
+```
+**What it does:** Creates a new repository using SHA-256 instead of SHA-1 for enhanced security and future compatibility.
+
+**Note:** SHA-256 repositories are the future standard, though SHA-1 repositories remain fully functional for backward compatibility.
+
 ---
 
-###  Checking Status
+## Checking Status
 
 **Command:**
 ```bash
@@ -34,9 +44,16 @@ Untracked files:
   (use "git add <file>..." to include in what will be committed)
         README.md
 ```
+
+**Modern Alternative:**
+```bash
+git status --porcelain
+```
+**What it does:** Provides a machine-readable output format, useful for scripting and automation.
+
 ---
 
-###  Staging Changes
+## Staging Changes
 
 **Command:**
 ```bash
@@ -50,6 +67,12 @@ git add -A
 ```
 **What it does:** Stages all changes, including deletions.
 
+**Modern Alternative:**
+```bash
+git add --all
+```
+**What it does:** Same as `git add -A` but more explicit and readable.
+
 **Exercise:**
 1. Create a new file (`hello.txt`).
 2. Run `git add .` and check status.
@@ -58,7 +81,7 @@ git add -A
 
 ---
 
-###  Committing Changes
+## Committing Changes
 
 **Command:**
 ```bash
@@ -72,13 +95,24 @@ git commit
 ```
 Without `-m`, Git opens an editor for a detailed commit message.
 
+**Modern Best Practice:**
+```bash
+git commit -m "feat: add user authentication
+
+- Implement login functionality
+- Add password validation
+- Create user session management"
+```
+**What it does:** Uses conventional commit format for better project management and automated changelog generation.
+
 **Exercise:**
 1. Make some edits to a file.
 2. Stage the changes.
 3. Commit with and without using `-m`.
 
 ---
-### Viewing Commit History
+
+## Viewing Commit History
 
 **Command:**
 ```bash
@@ -91,6 +125,12 @@ git log --oneline
 ab12cd3 Initial commit
 9f8e7d6 Added README
 ```
+
+**Modern Enhancements:**
+```bash
+git log --oneline --graph --decorate --all
+```
+**What it does:** Shows a comprehensive view with branch decorations and all branches.
 
 **Exercise:**
 1. Run `git log --oneline` and observe the commit history.

@@ -1,10 +1,10 @@
-## 4. Undoing Changes and Fixes
+# 4. Undoing Changes and Fixes
 
-Sometimes, mistakes happen. Git provides multiple ways to undo changes at various stages of your workflow. This section covers three primary methods: reverting commits, resetting commits, and restoring changes in your working directory.
+Sometimes, mistakes happen. Git provides multiple ways to undo changes at various stages of your workflow. This section covers the primary methods: reverting commits, resetting commits, and restoring changes in your working directory using modern Git commands.
 
 ---
 
-### Reverting a Commit
+## Reverting a Commit
 
 **Command:**
 ```bash
@@ -20,6 +20,18 @@ git revert ab12cd3
 ```
 This creates a new commit that reverses the changes from `ab12cd3`.
 
+**Revert Multiple Commits:**
+```bash
+git revert <commit1> <commit2> <commit3>
+```
+**What it does:** Reverts multiple commits in sequence.
+
+**Revert a Range:**
+```bash
+git revert <oldest-commit>..<newest-commit>
+```
+**What it does:** Reverts a range of commits (excludes the oldest commit).
+
 **Exercise:**
 1. Identify a recent commit using `git log --oneline`.
 2. Revert that commit using `git revert <commit-hash>`.
@@ -27,11 +39,11 @@ This creates a new commit that reverses the changes from `ab12cd3`.
 
 ---
 
-### Resetting Commits
+## Resetting Commits
 
 `git reset` moves the branch pointer to a previous commit and can modify your staging area and working directory based on the chosen option.
 
-#### Soft Reset
+### Soft Reset
 
 **Command:**
 ```bash
@@ -46,7 +58,7 @@ git reset --soft HEAD~1
 ```
 After this, your changes remain staged, allowing you to recommit them if needed.
 
-#### Mixed Reset (Default)
+### Mixed Reset (Default)
 
 **Command:**
 ```bash
@@ -58,7 +70,7 @@ git reset --mixed HEAD~1
 ```
 **What it does:** Moves the HEAD pointer back one commit and unstages the changes, but leaves the modifications in your working directory.
 
-#### Hard Reset
+### Hard Reset
 
 **Command:**
 ```bash
@@ -74,11 +86,11 @@ git reset --hard HEAD~1
 
 ---
 
-### Restoring Changes in the Working Directory
+## Restoring Changes in the Working Directory
 
-Sometimes you only want to undo changes in your working directory without altering commit history.
+Sometimes you only want to undo changes in your working directory without altering commit history. The modern `git restore` command is the recommended way to handle this.
 
-#### Using git restore
+### Using git restore
 
 **Command for unstaged changes:**
 ```bash
@@ -100,6 +112,38 @@ git restore --staged <file>
 ```
 **What it does:** Removes the file from the staging area while keeping the changes in the working directory.
 
+**Restore from a specific commit:**
+```bash
+git restore --source=HEAD~2 <file>
+```
+**What it does:** Restores the file to the state it was in two commits ago.
+
+**Restore all files:**
+```bash
+git restore .
+```
+**What it does:** Restores all modified files in the current directory to their last committed state.
+
+**Restore all staged files:**
+```bash
+git restore --staged .
+```
+**What it does:** Unstages all staged files in the current directory.
+
+### Legacy Commands (Still Supported)
+
+**Using git checkout (legacy):**
+```bash
+git checkout -- <file>
+```
+**What it does:** Same as `git restore <file>` but uses the older syntax.
+
+**Using git reset (legacy):**
+```bash
+git reset HEAD <file>
+```
+**What it does:** Same as `git restore --staged <file>` but uses the older syntax.
+
 **Exercise:**
 1. Modify a file and check its status.
 2. Stage the changes using `git add`.
@@ -109,4 +153,4 @@ git restore --staged <file>
 
 ---
 
-These commands give you the flexibility to undo mistakes at various stages—whether you want to preserve history or simply clear uncommitted changes. Practice each method to understand how they affect your repository.
+These commands give you the flexibility to undo mistakes at various stages—whether you want to preserve history or simply clear uncommitted changes. The `git restore` command is the modern, recommended approach for file-level operations.
